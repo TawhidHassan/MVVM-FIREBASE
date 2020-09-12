@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "956656172641",
+    "firebase_url": "https://mvvmbangla-part2.firebaseio.com",
+    "project_id": "mvvmbangla-part2",
+    "storage_bucket": "mvvmbangla-part2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956656172641:android:c3a0e69db849f0acc6b420",
+        "android_client_info": {
+          "package_name": "com.example.mvvmbanglapart2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956656172641-ifsrnpjcl2j886hn3dad7e5q88spkaas.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNq-l5HNVUAxPfbGe9AZweorh6j-m7MjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956656172641-ifsrnpjcl2j886hn3dad7e5q88spkaas.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
