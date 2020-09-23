@@ -16,6 +16,7 @@ public class SignInViewModel extends AndroidViewModel {
     private SignInRepository repository;
     public LiveData<SignInUser> checkAuthenticateLivedata;
     public LiveData<String> authenticateUserLiveData;
+    public LiveData<SignInUser> collectUserInfoLiveData;
 
     public SignInViewModel(@NonNull Application application) {
         super(application);
@@ -30,5 +31,10 @@ public class SignInViewModel extends AndroidViewModel {
 
     public void checkAutheticate(){
         checkAuthenticateLivedata=repository.checkAuthenticationInFirebase();
+    }
+
+    public void collectUserInfo()
+    {
+        collectUserInfoLiveData=repository.collectUserData();
     }
 }

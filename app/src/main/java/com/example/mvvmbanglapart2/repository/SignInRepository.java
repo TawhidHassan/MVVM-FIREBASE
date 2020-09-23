@@ -1,5 +1,8 @@
 package com.example.mvvmbanglapart2.repository;
 
+import android.net.Uri;
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
@@ -59,6 +62,27 @@ public class SignInRepository {
     }
 
 
+    //collect user info
+    public MutableLiveData<SignInUser> collectUserData()
+    {
+        MutableLiveData<SignInUser> collectMutableLiveData=new MutableLiveData<>();
+
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        if (currentUser!=null)
+        {
+            String uId=currentUser.getUid();
+            String name=currentUser.getDisplayName();
+            String email=currentUser.getEmail();
+            Uri getImageUrl=currentUser.getPhotoUrl();
+            String imageUri=getImageUrl.toString();
+
+            SignInUser signInUser=new SignInUser(uId,name,email,imageUri);
+            collectMutableLiveData.setValue(signInUser);
+
+        }
+
+        return collectMutableLiveData;
+    }
 
 
 

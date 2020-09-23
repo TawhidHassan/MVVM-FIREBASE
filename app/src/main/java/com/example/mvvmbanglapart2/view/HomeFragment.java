@@ -5,14 +5,22 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mvvmbanglapart2.R;
+import com.example.mvvmbanglapart2.model.SignInUser;
+import com.example.mvvmbanglapart2.viewmodel.SignInViewModel;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -22,6 +30,9 @@ public class HomeFragment extends Fragment {
     private TextView nameTextView,emailTextView;
 
 
+    private SignInViewModel signInViewModel;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private GoogleSignInClient googleSignInClient;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -38,6 +49,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        getUserInfo();
+
         //find section
         signOutButton= view.findViewById(R.id.signOutButtonId);
         profileImageView= view.findViewById(R.id.profileImageId);
@@ -48,9 +61,32 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                
+
             }
         });
 
+    }
+
+    private void getUserInfo() {
+
+        signInViewModel=new ViewModelProvider(getActivity(),ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(SignInViewModel.class);
+
+        signInViewModel.collectUserInfo();
+        signInViewModel.collectUserInfoLiveData.observe(getViewLifecycleOwner(), new Observer<SignInUser>() {
+            @Override
+            public void onChanged(SignInUser signInUser) {
+                setProfile(signInUser);
+            }
+        });
+
+    }
+
+    private void setProfile(SignInUser signInUser) {
+        if(signInUser != null){
+            Glide.with(getActivity()).load(signInUser.getIamgeUrl())
+                    .centerCrop().placeholder(R.drawable.profile).into(profileImageView);
+            nameTextView.setText(signInUser.getName());
+            emailTextView.setText(signInUser.getEmail());
+        }
     }
 }
