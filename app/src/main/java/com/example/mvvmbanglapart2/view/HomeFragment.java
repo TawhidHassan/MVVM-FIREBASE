@@ -1,5 +1,6 @@
 package com.example.mvvmbanglapart2.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,9 @@ import com.bumptech.glide.Glide;
 import com.example.mvvmbanglapart2.R;
 import com.example.mvvmbanglapart2.model.SignInUser;
 import com.example.mvvmbanglapart2.viewmodel.SignInViewModel;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,7 +35,7 @@ public class HomeFragment extends Fragment {
 
     private SignInViewModel signInViewModel;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private GoogleSignInClient googleSignInClient;
+     GoogleSignInClient googleSignInClient;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -50,7 +53,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getUserInfo();
-
+        initGoogleSignInClient();
         //find section
         signOutButton= view.findViewById(R.id.signOutButtonId);
         profileImageView= view.findViewById(R.id.profileImageId);
@@ -60,13 +63,19 @@ public class HomeFragment extends Fragment {
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                signOut();
             }
         });
 
     }
 
+    private void initGoogleSignInClient() {
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(getActivity(), googleSignInOptions);
+
+    }
     private void getUserInfo() {
 
         signInViewModel=new ViewModelProvider(getActivity(),ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(SignInViewModel.class);
@@ -88,5 +97,13 @@ public class HomeFragment extends Fragment {
             nameTextView.setText(signInUser.getName());
             emailTextView.setText(signInUser.getEmail());
         }
+    }
+
+    private void signOut() {
+        firebaseAuth.signOut();
+        googleSignInClient.signOut();
+        Intent intent= new Intent(getActivity(),SignInActivity.class);
+        startActivity(intent);
+        getActivity().onBackPressed();
     }
 }
