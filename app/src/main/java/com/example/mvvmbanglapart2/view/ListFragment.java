@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.mvvmbanglapart2.R;
 import com.example.mvvmbanglapart2.adapter.ContactAdapter;
+import com.example.mvvmbanglapart2.dialogue.DetailsDialogue;
 import com.example.mvvmbanglapart2.model.ContactUser;
 import com.example.mvvmbanglapart2.viewmodel.ContactViewModel;
 
@@ -86,7 +87,12 @@ public class ListFragment extends Fragment implements ContactAdapter.ClickiInter
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
+       openDetailsDialogue(position);
+    }
+
+    private void openDetailsDialogue(int position) {
+        DetailsDialogue detailsDialogue=new DetailsDialogue(userList,position);
+        detailsDialogue.show(getChildFragmentManager(),"Details Dialogue");
     }
 
     @Override

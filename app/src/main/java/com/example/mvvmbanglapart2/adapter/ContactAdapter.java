@@ -26,7 +26,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     public ContactAdapter(ClickiInterFace clickiInterFace) {
         this.clickiInterFace = clickiInterFace;
     }
-
     public void getContactList(List<ContactUser> userList){
         this.userList= userList;
     }
