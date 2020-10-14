@@ -1,6 +1,7 @@
 package com.example.mvvmbanglapart2.view;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -96,7 +97,24 @@ public class ListFragment extends Fragment implements ContactAdapter.ClickiInter
     }
 
     @Override
-    public void onLongItemClick(int position) {
-Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
+    public void onLongItemClick(final int position) {
+
+        final String id= userList.get(position).contactId;
+        AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+        String[] option= {"Update","Delete"};
+        builder.setItems(option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which==0){
+
+                }
+                if(which==1){
+                    contactViewModel.delete(id);
+                    Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
+                    userList.remove(position);
+                    adapter.notifyItemRemoved(position);
+                }
+            }
+        }).create().show();
     }
 }

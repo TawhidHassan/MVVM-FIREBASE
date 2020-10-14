@@ -36,7 +36,10 @@ public class ContactViewModel extends AndroidViewModel {
     }
 
 
+    public void delete(String id){
+        repository.deleteDataFirebase(id);
 
+    }
 
 
 
