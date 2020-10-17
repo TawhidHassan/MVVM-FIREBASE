@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.mvvmbanglapart2.model.ContactUser;
+import com.example.mvvmbanglapart2.model.UpdateUser;
 import com.example.mvvmbanglapart2.repository.ContactRepository;
 
 import java.util.List;
@@ -39,6 +40,14 @@ public class ContactViewModel extends AndroidViewModel {
     public void delete(String id){
         repository.deleteDataFirebase(id);
 
+    }
+
+
+    public void updateImage(String id,Uri uri){
+        repository.updateImageFirebase(id,uri);
+    }
+    public void updateInfo(UpdateUser user){
+        repository.updateInfoFirebase(user);
     }
 
 

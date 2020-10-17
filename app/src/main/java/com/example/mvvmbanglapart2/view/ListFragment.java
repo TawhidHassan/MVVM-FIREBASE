@@ -2,6 +2,7 @@ package com.example.mvvmbanglapart2.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.appcompat.widget.SearchView;
+
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mvvmbanglapart2.R;
@@ -37,6 +42,13 @@ public class ListFragment extends Fragment implements ContactAdapter.ClickiInter
     private ContactAdapter adapter;
     //view Model
     private ContactViewModel contactViewModel;
+
+    private Button updateImageButton,updateInfoButton;
+    private TextView idTextView;
+    private EditText nameEditText,phoneEditText,emailEditText;
+
+    private Uri updateUri= null;
+    int userPosition;
 
     public ListFragment() {
         // Required empty public constructor
@@ -106,7 +118,7 @@ public class ListFragment extends Fragment implements ContactAdapter.ClickiInter
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(which==0){
-
+                    update(position);
                 }
                 if(which==1){
                     contactViewModel.delete(id);
@@ -116,5 +128,9 @@ public class ListFragment extends Fragment implements ContactAdapter.ClickiInter
                 }
             }
         }).create().show();
+    }
+
+    private void update(int position) {
+        userPosition= position;
     }
 }
