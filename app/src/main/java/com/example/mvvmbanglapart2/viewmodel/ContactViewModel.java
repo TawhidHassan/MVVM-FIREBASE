@@ -19,7 +19,7 @@ public class ContactViewModel extends AndroidViewModel {
 
     public LiveData<String >insertResultLiveData;
     public LiveData<List<ContactUser>>getContactLiveData;
-
+    public LiveData<List<ContactUser>> searchLiveData;
 
     public ContactViewModel(@NonNull Application application) {
         super(application);
@@ -50,7 +50,9 @@ public class ContactViewModel extends AndroidViewModel {
         repository.updateInfoFirebase(user);
     }
 
-
+    public void search(String s){
+        searchLiveData= repository.searchDataFirebase(s);
+    }
 
 
 }
